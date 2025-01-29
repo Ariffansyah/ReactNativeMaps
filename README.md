@@ -1,5 +1,3 @@
-Sure, I've updated the `README.md` to indicate that the project is for learning purposes and does not have a license:
-
 ```markdown
 # React Native Maps Demo
 
