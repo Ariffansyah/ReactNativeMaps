@@ -25,8 +25,8 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your_username/react-native-maps-demo.git
-   cd react-native-maps-demo
+   git clone https://github.com/Ariffansyah/ReactNativeMaps/tree/main
+   cd ReactNativeMaps
    ```
 
 2. **Install dependencies**:
