@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Alert, TouchableOpacity } from 'react-native';
-import MapView, { Circle, Marker, Polygon } from 'react-native-maps';
+import MapView, { Circle, Polygon } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -16,33 +16,6 @@ type Polycord = {
   longitude: number;
 };
 
-const fakeDatabaseData = [
-  //example database data for polygons (surabaya)
-  {
-    id: 1,
-    coordinates: [
-      { latitude: -7.295242, longitude: 112.727165 },
-      { latitude: -7.296500, longitude: 112.728500 },
-      { latitude: -7.298000, longitude: 112.727000 },
-      { latitude: -7.295242, longitude: 112.727165 }, // Closing the polygon
-    ],
-  },
-  {
-    id: 2,
-    coordinates: [
-      { latitude: -7.292500, longitude: 112.730000 },
-      { latitude: -7.294000, longitude: 112.731500 },
-      { latitude: -7.295500, longitude: 112.730000 },
-      { latitude: -7.292500, longitude: 112.730000 }, // Closing the polygon
-    ],
-  },
-];
-
-type Pcord = {
-  id: number;
-  coordinates: Polycord[];
-};
-
 const Maps: React.FC = () => {
   const [region, setRegion] = useState<Region>({
     latitude: 37.78825,
@@ -51,29 +24,26 @@ const Maps: React.FC = () => {
     longitudeDelta: 0.0421,
   });
   const [permissionGranted, setPermissionGranted] = useState(false);
-  const [polycords, setPolycords] = useState<Polycord[]>([]); // Store multiple coordinates
+  const [polycords, setPolycords] = useState<Polycord>();
   const [isPolygonSet, setIsPolygonSet] = useState(false);
-  const [p, setP] = useState<Pcord[]>([]);
-
-  useEffect(() => {
-    setP(fakeDatabaseData);
-  }, []);
 
   const handlePress = (e: any) => {
     if (isPolygonSet) return;
-
     const { latitude, longitude } = e.nativeEvent.coordinate;
-    setPolycords([...polycords, { latitude, longitude }]); // Append new coordinate
+    setPolycords({
+      latitude,
+      longitude,
+    });
   };
 
   const completePolygon = () => {
     setIsPolygonSet(true);
-  };
+  }
 
   const clearPolygon = () => {
-    setPolycords([]); // Clear all coordinates
+    setPolycords(undefined);
     setIsPolygonSet(false);
-  };
+  }
 
   useEffect(() => {
     const requestLocationPermission = async () => {
@@ -120,6 +90,7 @@ const Maps: React.FC = () => {
         region={region}
         showsUserLocation={true}
         followsUserLocation={true}
+        minZoomLevel={12}
         zoomEnabled={true}
         zoomTapEnabled={true}
         zoomControlEnabled={false}
@@ -129,31 +100,14 @@ const Maps: React.FC = () => {
         mapPadding={{ top: 30, right: 0, bottom: 0, left: 0 }} // Moves button
         onPress={handlePress}
       >
-        {/* Display markers at each point */}
-        {polycords.map((coord, index) => (
-          <Marker key={index} coordinate={coord} />
-        ))}
-
-        {/* Draw Polygon if there are at least 3 points */}
         {isPolygonSet && (
           <Polygon
-            coordinates={polycords}
-            strokeColor="rgba(255,0,0,1)" // Blue border
-            fillColor="rgba(255,0,0,0.3)" // Semi-transparent blue
+            coordinates={polycords ? [polycords, { latitude: polycords.latitude + 0.001, longitude: polycords.longitude + 0.001 }] : []}
+            fillColor="rgba(255, 0, 0, 0.5)"
+            strokeColor="rgba(255, 0, 0, 1)"
             strokeWidth={2}
           />
         )}
-
-        {p.map((p) => (
-          <Polygon
-            key={p.id}
-            coordinates={p.coordinates}
-            strokeColor="rgba(0,0,255,1)" // Blue border
-            fillColor="rgba(0,0,255,0.3)" // Semi-transparent blue
-            strokeWidth={2}
-          />
-        ))}
-
         <Circle
           center={region}
           radius={1000}
