@@ -1,4 +1,3 @@
-```markdown
 # React Native Maps Demo
 
 This repository demonstrates how to use React Native Maps to create interactive map-based applications. It includes features like user location tracking, custom polygon rendering from fake database data, and interactive map markers. The goal is to provide a simple foundation for building location-based apps with React Native.
