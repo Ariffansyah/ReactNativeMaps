@@ -71,15 +71,6 @@ Follow these instructions to get a copy of the project up and running on your lo
    ```bash
    npx react-native run-ios
    ```
-
-## Project Structure
-
-- `src/components`: Contains reusable React components.
-- `src/screens`: Contains the main application screens.
-- `src/services`: Contains services for data fetching and other utilities.
-- `src/assets`: Contains static assets like images and icons.
-- `src/styles`: Contains style definitions for the application.
-
 ## Usage
 
 ### User Location Tracking
