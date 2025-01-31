@@ -43,10 +43,10 @@ type Pcord = {
   coordinates: Polycord[];
 };
 
-const Maps: React.FC = () => {
+const Maps = () => {
   const [region, setRegion] = useState<Region>({
-    latitude: 37.78825,
-    longitude: -122.4324,
+    latitude: -7.257500275852784,
+    longitude: 112.75240322919704,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
