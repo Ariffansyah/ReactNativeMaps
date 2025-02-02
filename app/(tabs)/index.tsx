@@ -24,7 +24,7 @@ const fakeDatabaseData = [
       { latitude: -7.295242, longitude: 112.727165 },
       { latitude: -7.296500, longitude: 112.728500 },
       { latitude: -7.298000, longitude: 112.727000 },
-      { latitude: -7.295242, longitude: 112.727165 }, // Closing the polygon
+      { latitude: -7.295242, longitude: 112.727165 },
     ],
   },
   {
@@ -33,7 +33,7 @@ const fakeDatabaseData = [
       { latitude: -7.292500, longitude: 112.730000 },
       { latitude: -7.294000, longitude: 112.731500 },
       { latitude: -7.295500, longitude: 112.730000 },
-      { latitude: -7.292500, longitude: 112.730000 }, // Closing the polygon
+      { latitude: -7.292500, longitude: 112.730000 },
     ],
   },
 ];
@@ -51,8 +51,7 @@ const Maps = () => {
     longitudeDelta: 0.0421,
   });
   const [permissionGranted, setPermissionGranted] = useState(false);
-  const [polycords, setPolycords] = useState<Polycord[]>([]); // Store multiple coordinates
-  const [isPolygonSet, setIsPolygonSet] = useState(false);
+  const [polycords, setPolycords] = useState<Polycord[]>([]); const [isPolygonSet, setIsPolygonSet] = useState(false);
   const [p, setP] = useState<Pcord[]>([]);
 
   useEffect(() => {
@@ -63,10 +62,15 @@ const Maps = () => {
     if (isPolygonSet) return;
 
     const { latitude, longitude } = e.nativeEvent.coordinate;
-    setPolycords([...polycords, { latitude, longitude }]); // Append new coordinate
+    setPolycords([...polycords, { latitude, longitude }]);
   };
 
   const completePolygon = () => {
+    if (polycords.length == 0) {
+      Alert.alert('Please select at least 3 points');
+      setIsPolygonSet(false);
+      return;
+    }
     setIsPolygonSet(true);
   };
 
