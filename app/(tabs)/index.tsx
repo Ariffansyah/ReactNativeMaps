@@ -75,7 +75,7 @@ const Maps = () => {
   };
 
   const clearPolygon = () => {
-    setPolycords([]); // Clear all coordinates
+    setPolycords([]);
     setIsPolygonSet(false);
   };
 
@@ -130,20 +130,18 @@ const Maps = () => {
         rotateEnabled={true}
         scrollEnabled={true}
         pitchEnabled={false}
-        mapPadding={{ top: 30, right: 0, bottom: 0, left: 0 }} // Moves button
+        mapPadding={{ top: 30, right: 0, bottom: 0, left: 0 }}
         onPress={handlePress}
       >
-        {/* Display markers at each point */}
         {polycords.map((coord, index) => (
           <Marker key={index} coordinate={coord} />
         ))}
 
-        {/* Draw Polygon if there are at least 3 points */}
         {isPolygonSet && (
           <Polygon
             coordinates={polycords}
-            strokeColor="rgba(255,0,0,1)" // Blue border
-            fillColor="rgba(255,0,0,0.3)" // Semi-transparent blue
+            strokeColor="rgba(255,0,0,1)"
+            fillColor="rgba(255,0,0,0.3)"
             strokeWidth={2}
           />
         )}
@@ -152,8 +150,8 @@ const Maps = () => {
           <Polygon
             key={p.id}
             coordinates={p.coordinates}
-            strokeColor="rgba(0,0,255,1)" // Blue border
-            fillColor="rgba(0,0,255,0.3)" // Semi-transparent blue
+            strokeColor="rgba(0,0,255,1)"
+            fillColor="rgba(0,0,255,0.3)"
             strokeWidth={2}
           />
         ))}
@@ -193,7 +191,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 10,
-    elevation: 5, // Shadow effect
+    elevation: 5,
   },
   button2: {
     position: 'absolute',
@@ -203,7 +201,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 10,
-    elevation: 5, // Shadow effect
+    elevation: 5,
   },
   button3: {
     position: 'absolute',
@@ -213,7 +211,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 10,
-    elevation: 5, // Shadow effect
+    elevation: 5,
   },
   buttonText: {
     color: 'black',
